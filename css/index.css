@@ -1,0 +1,423 @@
+/* 当屏幕尺寸小于等于 767px 时的css样式 */
+@media screen and (max-width: 767px) {
+  .music-name,
+  .icon-mv {
+    font-size: 0.186667rem;
+  }
+  .music-artists {
+    font-size: 0.133333rem;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  overflow-x: hidden;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+html body .container p {
+  margin: 0;
+  padding: 0 5px;
+}
+
+video {
+  /* 视频内容填充 */
+  -o-object-fit: fill;
+  object-fit: fill;
+}
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0;
+}
+
+.list-group-item {
+  padding: 10px 0px;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+/* 遮罩层 */
+.masked {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  outline: 0;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgb(0, 0, 0);
+  /* IE透明度设置 */
+  filter: alpha(opacity=70);
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.masked-player {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  width: 70%;
+  height: 80%;
+}
+/*end 遮罩层  */
+
+/* 主体位置 */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+}
+
+.music-warp {
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.3);
+}
+/* end 主体位置 */
+
+/* 头部模块 */
+.music-header {
+  height: 40px;
+  padding: 0;
+  background-color: #282a36;
+}
+.music-header h3 {
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  line-height: 40px;
+  text-align: left;
+  color: aliceblue;
+}
+.search-input {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: 25px;
+  border: none;
+  border-radius: 15px;
+  color: #666;
+  font-size: 13px;
+  font-weight: 550;
+  z-index: 3;
+}
+.icon-search {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #ff1f07;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.icon-search:hover {
+  background-color: #ccc;
+}
+/* end 头部模块 */
+
+/* 中间模块 */
+.music-content {
+  height: 400px;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+}
+
+/* Chrome Safari隐藏滚动条 */
+/* .music-content ::-webkit-scrollbar {
+  display: none;
+} */
+
+/*滚动条整体样式 只设置Chrome浏览器*/
+.scrollbar::-webkit-scrollbar {
+  width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: slategray;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent 100%
+  );
+}
+.scrollbar::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
+}
+
+.music-box,
+.music-player,
+.music-comments {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+}
+
+.music-box {
+  scrollbar-width: none; /* firefox隐藏滚动条 */
+  -ms-overflow-style: none; /* IE 10+隐藏滚动条 */
+  overflow-y: scroll;
+  background-color: #666;
+}
+
+/* 歌曲列表模块 */
+.music-list > li {
+  background-color: transparent;
+  color: #dad3d3;
+}
+
+.icon-play {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  color: #ff1f07;
+  z-index: 1;
+  cursor: default;
+}
+
+.icon-mv {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  width: 22px;
+  height: 16px;
+  border: 2px solid lightyellow;
+  border-radius: 5px;
+  line-height: 13px;
+  text-align: center;
+  color: lightyellow;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.music-info {
+  cursor: default;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  user-select: none;
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+}
+
+.music-name {
+  display: block;
+}
+
+.music-artists {
+  font-size: 12px;
+  transform: scale(0.8, 0.8);
+  opacity: 0.8;
+}
+/* end 歌曲列表模块 */
+
+/* 歌曲播放器模块 */
+.music-player {
+  position: relative;
+  padding: 0 5px;
+  background-color: #666666;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.player-info {
+  position: absolute;
+  top: 42.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+}
+
+.PlaySy,
+.PlayEy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 98%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+.PlaySy {
+  overflow: hidden;
+  border-radius: 50%;
+  background: url(../images//bg_center.png) no-repeat center;
+  background-size: 100%;
+  z-index: -10;
+}
+.PlayEy {
+  background: url(../images/bg_circle.png) no-repeat center;
+  background-size: 40%;
+  opacity: 0.8;
+}
+
+.Btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95px;
+  height: 95px;
+  background-color: yellow;
+  background: url(../images/btn-bg.png) no-repeat;
+  z-index: -1;
+}
+
+.Play {
+  position: absolute;
+  width: 29px;
+  height: 36px;
+  background: red;
+  background: url(../images/pause.png) no-repeat;
+  transition: 0.5s;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.btns-bg {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  height: 400px;
+}
+/* end 歌曲播放器模块 */
+
+/* 歌曲评论模块 */
+.music-comments {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none; /* firefox隐藏滚动条 */
+  -ms-overflow-style: none; /* IE 10+隐藏滚动条 */
+  background-color: #666;
+}
+
+.music-comments > ul > li {
+  background-color: #666;
+}
+
+.music-comments > h5 {
+  font-weight: 700;
+  color: #dad3d3;
+  padding-left: 10px;
+}
+
+.comments-info {
+  width: 100%;
+  padding-left: 5px;
+  vertical-align: top;
+}
+
+.comments-user {
+  float: left;
+  width: 25%;
+  height: 100%;
+}
+
+.comments-circle {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 50%;
+}
+
+.comments-uname {
+  /* display: block; */
+  margin-bottom: 5px;
+  color: #dad3d3;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.comments-content {
+  float: left;
+  width: 75%;
+  font-size: 13px;
+  color: #dad3d3;
+  transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+}
+/* end 歌曲评论模块 */
+/* end 中间模块 */
+
+/* 底部模块 */
+.music-footer {
+  height: 40px;
+  background-color: #f1f3f4;
+}
+
+.footer-container {
+  position: relative;
+}
+
+.footer-player {
+  width: 100%;
+  height: 40px;
+}
+/* end 底部模块 */

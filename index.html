@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>悦听播放器</title>
+    <link rel="Shortcut Icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container row">
+            <div class="music-warp">
+                <!-- 头部内容 -->
+                <header class="music-header">
+                    <!-- logo -->
+                    <div class="col-xs-6">
+                        <h3 class="col-xs-12">悦听</h3>
+                    </div>
+                    <!-- 搜索区域 -->
+                    <div class="col-xs-6">
+                        <div class="col-xs-12 search-box">
+                            <input type="search" class="col-xs-12 search-input" placeholder="周杰伦" v-model="query"
+                                @keyup.enter="searchMusic">
+                            <span class="glyphicon glyphicon-search icon-search" @click="searchMusic"></span>
+                        </div>
+                    </div>
+                </header>
+                <!-- 中间内容 -->
+                <main class="music-content">
+                    <!-- 歌曲列表 -->
+                    <aside class="music-box scrollbar col-sm-3 col-xs-4">
+                        <ul class="music-list list-group" v-cloak>
+                            <!-- 渲染歌曲列表 -->
+                            <li :key="item.id" v-for="item in music.list" class="list-group-item">
+                                <i class="glyphicon glyphicon-play-circle icon-play" @click="playMusic(item.id)"></i>
+
+                                <div class="music-info" @dblclick="playMusic(item.id)">
+                                    <p>
+                                        <span class="music-name">{{item.name}}</span>
+                                        <span v-for="artists in item.artists" :key="artists.id"
+                                            class="music-artists">{{artists.name}}&nbsp;</span>
+                                    </p>
+                                </div>
+
+                                <i class="icon-mv" v-if="item.mvid != 0" @click="playerMV(item.mvid,'show')">mv</i>
+                            </li>
+                        </ul>
+                    </aside>
+                    <!-- 歌曲播放器 -->
+                    <section class="music-player col-sm-6 col-xs-8">
+                        <div class="player-info">
+                            <div class="btns-bg">
+                                <div class="PlaySy"></div>
+                                <div class="PlayEy"></div>
+                                <div class="Btn"></div>
+                                <div class="Play"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- 歌曲评论 -->
+                    <!-- hidden-xs 只有再超小屏幕才会隐藏 -->
+                    <aside class="music-comments scrollbar col-sm-3 hidden-xs">
+                        <h5>热门评论</h5>
+                        <ul class="list-group" v-cloak>
+                            <li v-for="item in music.comments" :key="item.commentId" class="list-group-item clearfix">
+                                <div class="comments-info clearfix">
+                                    <div class="comments-user">
+                                        <img :src="item.user.avatarUrl" class="comments-circle"
+                                            :title="item.user.nickname">
+                                    </div>
+                                    <div class="comments-content">
+                                        <span class="comments-uname">{{item.user.nickname}}</span>
+                                        <p>{{item.content}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </aside>
+                </main>
+                <!-- 底部内容 -->
+                <footer class="music-footer">
+                    <div class="footer-container">
+                        <audio id="footer-player" class="footer-player" controls>
+                            The current browser does not support audio
+                        </audio>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <!-- 遮罩层 -->
+        <div class="masked" v-show="isShow" @click="playerMV(0,'hide')" style="display: none;">
+            <video id="masked-player" :src="mvUrl" class="masked-player" controls="controls" @click.stop></video>
+        </div>
+    </div>
+
+    <script src="./js/jQuery.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
